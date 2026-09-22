@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการสินค้าทั้งหมด - GUS SHOP | ช้อปออนไลน์ มั่นใจ คุ้มค่า</title>
+    
+    <!-- นำเข้าฟอนต์ภาษาไทย Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- นำเข้า Tailwind CSS v3.4 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- ตั้งค่า Tailwind ให้เหมือนเว็บช้อปปิ้ง -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        prompt: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        gus: {
+                            main: '#fa8e71', // สีส้มโอรส (แบรนด์)
+                            dark: '#f07453', // สีส้มเข้ม (Header)
+                            price: '#ee4d2d', // สีส้มแดงสำหรับราคาสินค้า
+                            bg: '#f5f5f5' // สีเทาอ่อนสำหรับพื้นหลังเว็บ
+                        }
+                    },
+                    boxShadow: {
+                        'card': '0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 8px 0 rgba(0, 0, 0, 0.05)',
+                        'card-hover': '0 4px 12px 0 rgba(0, 0, 0, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ตัดข้อความให้เหลือ 2 บรรทัด */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gus-bg font-prompt text-gray-800 antialiased">
+
+    <div class="w-full min-h-screen relative pb-12">
+
+        <!-- ================= HEADER ================= -->
+        <header class="bg-gradient-to-b from-gus-dark to-[#f26540] px-4 md:px-8 lg:px-12 pt-4 pb-4 sticky top-0 z-50 shadow-md">
+            <div class="max-w-7xl mx-auto flex items-center gap-3 md:gap-6">
+                
+                <!-- ปุ่มย้อนกลับ (ลิงก์ไปหน้า index.html) -->
+                <a href="index.html" class="text-white hover:text-gray-200 transition-colors p-1 transform hover:-translate-x-1 shrink-0">
+                    <svg class="w-7 h-7 md:w-8 md:h-8 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                </a>
+                
+                <!-- ช่องค้นหาสไตล์เว็บ E-commerce -->
+                <div class="flex-1 max-w-4xl mx-auto relative flex shadow-md rounded-sm overflow-hidden border-2 border-white/90">
+                    <input type="text" placeholder="ค้นหาสินค้าในร้าน GUS SHOP..." class="w-full bg-white text-gray-800 text-sm md:text-base py-2.5 md:py-3 pl-4 pr-4 outline-none focus:ring-0">
+                    <button class="bg-gray-800 text-white px-5 md:px-8 hover:bg-black transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- ไอคอนตะกร้า (ลิงก์ไปหน้า cart.html) -->
+                <a href="cart.html" class="text-white hover:text-gray-200 transition-transform hover:scale-110 shrink-0 relative p-1 md:p-2">
+                    <svg class="w-8 h-8 md:w-9 md:h-9 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <!-- จุดแจ้งเตือนตะกร้า -->
+                    <span class="absolute top-0 md:top-1 right-0 md:right-1 flex h-4 w-4 md:h-5 md:w-5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 md:h-5 md:w-5 bg-white border border-gus-dark text-[9px] md:text-[10px] text-gus-price justify-center items-center font-black shadow-sm">2</span>
+                    </span>
+                </a>
+                
+            </div>
+        </header>
+
+        <!-- ================= BANNERS & PROMOS ================= -->
+        <section class="bg-white pt-6 pb-6 border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                
+                <!-- รูปแบนเนอร์หลัก -->
+                <div class="w-full bg-gradient-to-r from-blue-900 to-blue-700 rounded-t-sm overflow-hidden relative shadow-sm min-h-[160px] md:min-h-[280px] flex flex-col justify-center">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a872f?q=80&w=1200&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay">
+                    <div class="relative z-10 p-6 md:p-12">
+                        <span class="bg-white text-gus-price font-black px-3 py-1 text-xs md:text-sm w-max rounded-sm mb-3 shadow-md inline-block">GUS SHOP Official Store</span>
+                        <h2 class="text-white text-3xl md:text-5xl font-black mb-2 drop-shadow-md tracking-wide">New Year Sale</h2>
+                        <p class="text-[#fce036] text-sm md:text-xl font-bold drop-shadow-sm">ลดจัดหนักรับปีใหม่ มั่นใจของแท้ 100%</p>
+                    </div>
+                </div>
+                
+                <!-- ส่วนแจกคูปองส่วนลดสีแดง -->
+                <div class="w-full bg-gradient-to-b from-[#da251d] to-[#b91c14] rounded-b-sm p-4 md:p-6 shadow-md border-t border-red-400">
+                    <div class="flex justify-between text-white text-[10px] md:text-sm font-bold px-2 pb-3 md:pb-4 border-b border-red-500/50 mb-3 md:mb-4">
+                        <span>🏷️ ต่อที่ 2 โค้ดส่วนลดจากแพลตฟอร์ม</span>
+                        <span>🎁 โค้ดลดเพิ่มจาก Gus Shop</span>
+                    </div>
+                    
+                    <!-- Grid คูปอง -->
+                    <div class="grid grid-cols-5 gap-2 md:gap-4 mb-2 md:mb-3">
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">15%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>1,000.-</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">12%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>800.-</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">15%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight text-orange-600 font-bold">เงินคืน<br>สูงสุด</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">20%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>2,000.-</div>
+                        </div>
+                        <div class="bg-gradient-to-b from-[#ffed4a] to-[#ffc824] text-center py-2 md:py-3 px-1 rounded-sm shadow-sm flex flex-col justify-center transform hover:-translate-y-1 transition-transform cursor-pointer border border-yellow-500">
+                            <div class="text-red-700 font-black text-xl md:text-4xl">%</div>
+                            <div class="text-[8px] md:text-xs text-red-700 mt-1 font-bold">เก็บโค้ด</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-5 gap-2 md:gap-4">
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">20%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight text-orange-600 font-bold">เงินคืน<br>สูงสุด</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">25%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>1,500.-</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">25%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>1,000.-</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">30%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>3,000.-</div>
+                        </div>
+                        <div class="bg-white text-center py-2 md:py-3 px-1 rounded-sm shadow-sm transform hover:-translate-y-1 transition-transform cursor-pointer border-b-2 border-red-200">
+                            <div class="text-gus-price font-black text-sm md:text-2xl leading-none">30%</div>
+                            <div class="text-[8px] md:text-xs text-gray-500 mt-1 md:mt-2 leading-tight">ลดสูงสุด<br>2,500.-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PRODUCT LIST (GRID) ================= -->
+        <section class="px-4 md:px-8 pt-8 pb-12">
+            <div class="max-w-7xl mx-auto"div data-aos="fade-up">
+                <!-- ส่วนหัวของ Section -->
+                <div class="bg-white px-4 md:px-6 py-4 border-b-4 border-gus-price flex justify-between items-center mb-4 shadow-sm rounded-t-sm">
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800 tracking-wide flex items-center gap-2">
+                        <svg class="w-6 h-6 text-gus-price" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        สินค้าทั้งหมดในร้าน
+                    </h2>
+                    <!-- จำลองตัวกรองสินค้า -->
+                    <div class="hidden md:flex gap-4 text-sm font-medium">
+                        <span class="text-gus-price cursor-pointer">ยอดนิยม</span>
+                        <span class="text-gray-500 hover:text-gus-price cursor-pointer transition-colors">ล่าสุด</span>
+                        <span class="text-gray-500 hover:text-gus-price cursor-pointer transition-colors">สินค้าขายดี</span>
+                        <span class="text-gray-500 hover:text-gus-price cursor-pointer transition-colors flex items-center">ราคา <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg></span>
+                    </div>
+                </div>
+
+                <!-- Grid สินค้าแบบ E-commerce เต็มจอ (Responsive) -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-3 lg:gap-4">
+                    
+                    <!-- การ์ดสินค้า 1 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <div class="absolute top-0 right-0 bg-[#fce036] text-gus-price text-[10px] md:text-xs font-black px-2 py-1 z-10 text-center leading-tight shadow-sm">
+                                50%<br><span class="text-[9px] font-bold text-white bg-gus-price px-1 rounded-sm uppercase">ลด</span>
+                            </div>
+                            <img src="https://www.midea.com/content/dam/midea-aem/th/th-new/pdp/kitchen-appliances/rice-cooker/mb-fs5020w/MB-FS5020W-2-new.jpg/jcr:content/renditions/MB-FS5020W-2-new.webp" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>หม้อหุงข้าว Tefal Pop Mini Rice Cooker</h3>
+                            <div class="flex flex-col mt-auto">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-gray-400 line-through text-[10px] md:text-xs">฿4,480</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-1">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿2,240</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 863 ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 2 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <div class="absolute top-0 right-0 bg-[#fce036] text-gus-price text-[10px] md:text-xs font-black px-2 py-1 z-10 text-center leading-tight shadow-sm">
+                                40%<br><span class="text-[9px] font-bold text-white bg-gus-price px-1 rounded-sm uppercase">ลด</span>
+                            </div>
+                            <img src="https://image.makewebeasy.net/makeweb/m_1920x0/UaTrfuCbl/Product/LF_B.jpg?v=202405291424" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>หม้อหุงข้าว Tefal Pop Mini ขาว รุ่นล่าสุด</h3>
+                            <div class="flex flex-col mt-auto">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-gray-400 line-through text-[10px] md:text-xs">฿3,330</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-1">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿1,999</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 10.5พัน ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 3 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <div class="absolute top-0 right-0 bg-[#fce036] text-gus-price text-[10px] md:text-xs font-black px-2 py-1 z-10 text-center leading-tight shadow-sm">
+                                30%<br><span class="text-[9px] font-bold text-white bg-gus-price px-1 rounded-sm uppercase">ลด</span>
+                            </div>
+                            <img src="https://image.makewebcdn.com/makeweb/m_1920x0/Oj6g4XrJ0/ALLPRODUCT/CO_745_02.jpg" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Tefal หม้อทอดไร้น้ำมันอัจฉริยะ 12-in-1 สุขภาพดี</h3>
+                            <div class="flex flex-col mt-auto">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-gray-400 line-through text-[10px] md:text-xs">฿6,590</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-1">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿4,590</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 2.1พัน ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 4 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <div class="absolute top-0 left-0 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-br-sm z-10 shadow-sm">
+                                ส่งฟรี
+                            </div>
+                            <img src="https://inwfile.com/s-dx/z808cp.jpg" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Tefal เซ็ตกระทะ Titanium Anti-Scratch 2 ชิ้น</h3>
+                            <div class="flex flex-col mt-auto pt-3">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿1,290</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 10,000+ ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 5 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <div class="absolute top-0 right-0 bg-[#fce036] text-gus-price text-[10px] md:text-xs font-black px-2 py-1 z-10 text-center leading-tight shadow-sm">
+                                20%<br><span class="text-[9px] font-bold text-white bg-gus-price px-1 rounded-sm uppercase">ลด</span>
+                            </div>
+                            <img src="https://s.alicdn.com/@sc04/kf/H8347a55640094265abf7a15b9ad772a72.jpg_720x720q50.jpg" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Tefal เซ็ตหม้อชุดครัว (5 ชิ้น) Non-Stick</h3>
+                            <div class="flex flex-col mt-auto">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-gray-400 line-through text-[10px] md:text-xs">฿3,980</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-1">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿3,190</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 188 ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 6 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <div class="absolute top-0 right-0 bg-[#fce036] text-gus-price text-[10px] md:text-xs font-black px-2 py-1 z-10 text-center leading-tight shadow-sm">
+                                25%<br><span class="text-[9px] font-bold text-white bg-gus-price px-1 rounded-sm uppercase">ลด</span>
+                            </div>
+                            <img src="https://kashiwa.co.th/wp-content/uploads/2022/12/KW-355_1.webp" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Gus ซึ้งนึ่งอเนกประสงค์ (3 ชั้น) สแตนเลส</h3>
+                            <div class="flex flex-col mt-auto">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-gray-400 line-through text-[10px] md:text-xs">฿2,660</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-1">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿1,999</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 9.8พัน ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 7 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60 hidden md:flex">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <img src="https://kashiwa.co.th/wp-content/uploads/2022/08/KW-108_2.webp" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-red-600 text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">HOT</span>Gus หม้อต้มสุกี้อเนกประสงค์ 2 in 1</h3>
+                            <div class="flex flex-col mt-auto pt-3">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿999</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 455 ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 8 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60 hidden md:flex">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <img src="https://web-res.midea.com/content/dam/comfee-aem/th/product/microwave-oven/cmo-mmp01m2ndpf(wh)/515x515-CMO-MMP01M2NDPF-WH-02.png/jcr:content/renditions/cq5dam.compression.png" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Gus ไมโครเวฟ ดีไซน์มินิมอล สีขาว</h3>
+                            <div class="flex flex-col mt-auto pt-3">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿3,999</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 1.1พัน ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 9 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60 hidden lg:flex">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <img src="https://kashiwa.co.th/wp-content/uploads/2024/05/KW-356_1.webp" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Gus หม้อต้มไฟฟ้ามินิ อเนกประสงค์</h3>
+                            <div class="flex flex-col mt-auto pt-3">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿599</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 8.4พัน ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- การ์ดสินค้า 10 -->
+                    <a href="#" class="bg-white rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full overflow-hidden group border border-gray-200/60 hidden lg:flex">
+                        <div class="w-full aspect-square relative bg-white flex justify-center items-center overflow-hidden p-2">
+                            <img src="https://img.lazcdn.com/g/p/64866a65a7cce13e1953252304140160.jpg_720x720q80.jpg" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-3 md:p-4 flex flex-col flex-1">
+                            <h3 class="text-xs md:text-sm text-gray-800 line-clamp-2 mb-2 flex-1"><span class="bg-gus-price text-white text-[9px] font-bold px-1 rounded-[2px] mr-1 shadow-sm">Mall</span>Gus กระทะเทฟลอน ก้นลึก กันติดกระทะ</h3>
+                            <div class="flex flex-col mt-auto pt-3">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-gus-price font-bold text-base md:text-xl leading-none">฿999</span>
+                                    <span class="text-[9px] md:text-[10px] text-gray-500">ขายแล้ว 3.3พัน ชิ้น</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+                
+                <!-- ปุ่มโหลดเพิ่มเติม -->
+                <div class="mt-10 flex justify-center">
+                    <button class="bg-white border border-gray-300 text-gray-600 px-24 md:px-32 py-2.5 rounded-sm hover:bg-gray-50 hover:text-gus-price transition-colors shadow-sm font-medium text-sm">ดูสินค้าเพิ่มเติม</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= FOOTER ================= -->
+        <footer class="border-t-[4px] border-gus-price px-6 md:px-12 pt-12 pb-6 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-8 text-gray-700">
+                    <!-- ข้อมูลร้าน -->
+                    <div class="col-span-1">
+                        <div class="flex items-center gap-2 mb-4 text-gus-price">
+                            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 10-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                            <h2 class="text-xl md:text-2xl font-bold">GUS SHOP</h2>
+                        </div>
+                        <p class="text-xs md:text-sm leading-relaxed mb-4 text-gray-500">
+                            แพลตฟอร์ม Gus Shop ช้อปปิ้งออนไลน์ที่รวมสินค้าหลากหลาย หมวดหมู่ พร้อมโปรโมชั่นส่วนลดมากมาย ช่วยให้การซื้อขาย สะดวก ปลอดภัย และ รวดเร็ว
+                        </p>
+                        <h4 class="font-bold text-sm mb-2 text-gray-800">ติดตามเรา</h4>
+                        <div class="flex gap-2">
+                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[10px] font-bold text-gray-600 hover:bg-black hover:text-white transition cursor-pointer">TK</div>
+                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[10px] font-bold text-gray-600 hover:bg-blue-600 hover:text-white transition cursor-pointer">FB</div>
+                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-[10px] font-bold text-gray-600 hover:bg-pink-500 hover:text-white transition cursor-pointer">IG</div>
+                        </div>
+                    </div>
+
+                    <!-- หมวดหมู่ -->
+                    <div class="col-span-1">
+                        <h3 class="font-bold text-base mb-4 text-gray-800">หมวดหมู่</h3>
+                        <ul class="text-sm space-y-3 text-gray-500">
+                            <li><a href="#" class="hover:text-gus-price transition-colors">แฟชั่นผู้หญิงและผู้ชาย</a></li>
+                            <li><a href="#" class="hover:text-gus-price transition-colors">สุขภาพและความงาม</a></li>
+                            <li><a href="#" class="hover:text-gus-price transition-colors">สินค้าแม่บ้านและเด็ก</a></li>
+                            <li><a href="#" class="hover:text-gus-price transition-colors">อุปกรณ์อิเล็กทรอนิกส์</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- บริการลูกค้า -->
+                    <div class="col-span-1">
+                        <h3 class="font-bold text-base mb-4 text-gray-800">บริการลูกค้า</h3>
+                        <ul class="text-sm space-y-3 text-gray-500">
+                            <li><a href="#" class="hover:text-gus-price transition-colors">ศูนย์ช่วยเหลือ</a></li>
+                            <li><a href="#" class="hover:text-gus-price transition-colors">วิธีสั่งซื้อและชำระเงิน</a></li>
+                            <li><a href="#" class="hover:text-gus-price transition-colors">การคืนสินค้าและคืนเงิน</a></li>
+                            <li><a href="#" class="hover:text-gus-price transition-colors">ติดต่อเรา</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- ชำระเงินและการจัดส่ง -->
+                    <div class="col-span-1">
+                        <h3 class="font-bold text-base mb-4 text-gray-800">การชำระเงิน</h3>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <div class="w-12 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-[9px] font-black text-blue-900 shadow-sm">VISA</div>
+                            <div class="w-12 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-[9px] font-black text-red-600 shadow-sm">JCB</div>
+                            <div class="w-12 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-[9px] font-black text-green-600 shadow-sm">COD</div>
+                        </div>
+                        <h3 class="font-bold text-base mb-4 text-gray-800">บริการจัดส่ง</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="w-16 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-[10px] font-bold text-orange-500 shadow-sm">Gus Ex</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- เครดิตลิขสิทธิ์ -->
+                <div class="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-gray-200 text-xs text-gray-400 gap-4">
+                    <p>© 2024 Gus Shop. สงวนลิขสิทธิ์</p>
+                    <div class="flex gap-4 md:gap-6">
+                        <a href="#" class="hover:text-gus-price transition-colors">นโยบายความเป็นส่วนตัว</a>
+                        <a href="#" class="hover:text-gus-price transition-colors">เงื่อนไขการใช้งาน</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+  AOS.init();
+</script>
+</body>
+</html>

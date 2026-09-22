@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รีวิวสินค้า - GUS SHOP</title>
+    
+    <!-- นำเข้าฟอนต์ภาษาไทย Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- นำเข้า Tailwind CSS v3.4 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- ตั้งค่า Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        prompt: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        gus: {
+                            main: '#fa8e71', // สีส้มโอรส
+                            dark: '#f07453', // สีส้มเข้ม (Header)
+                            price: '#ee4d2d', // สีส้มแดง
+                            bg: '#f5f5f5' // สีเทาอ่อนสำหรับพื้นหลัง
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ซ่อน Scrollbar ของเมนูแนวนอน */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-100 font-prompt text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- ================= 1. HEADER (แถบเมนูด้านบน ลิงก์ไปทุกหน้า) ================= -->
+    <header class="bg-gradient-to-b from-gus-dark to-[#f26540] px-4 md:px-8 lg:px-12 pt-5 pb-3 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto">
+            <!-- แถบด้านบนสุด (Logo + Search + Cart) -->
+            <div class="flex items-center justify-between gap-4 md:gap-8 mb-4">
+                
+                <!-- โลโก้ (ลิงก์กลับหน้าแรก) -->
+                <a href="index.html" class="flex items-center gap-2 text-white hover:opacity-90 transition-opacity shrink-0 transform hover:scale-105 duration-200">
+                    <svg class="w-9 h-9 md:w-11 md:h-11 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <div class="hidden sm:block">
+                        <h1 class="text-2xl md:text-3xl font-bold leading-none tracking-wide drop-shadow-md">GUS SHOP</h1>
+                        <p class="text-[10px] md:text-xs font-medium text-white/90 tracking-widest mt-0.5">ออนไลน์ช้อปปิ้ง</p>
+                    </div>
+                </a>
+
+                <!-- ช่องค้นหา -->
+                <div class="flex-1 max-w-4xl mx-auto relative flex shadow-lg rounded-sm overflow-hidden border-2 border-white">
+                    <input type="text" placeholder="ค้นหาสินค้า, แบรนด์..." class="w-full bg-white text-gray-800 text-sm md:text-base py-2.5 md:py-3 pl-4 pr-4 outline-none focus:ring-0">
+                    <button class="bg-gray-800 text-white px-6 md:px-8 hover:bg-black transition-colors flex items-center justify-center">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- ไอคอนตะกร้า (ลิงก์ไปหน้า cart.html) -->
+                <a href="cart.html" class="text-white hover:text-gray-200 transition-transform hover:scale-110 shrink-0 relative p-2">
+                    <svg class="w-8 h-8 md:w-9 md:h-9 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </a>
+            </div>
+
+            <!-- เมนูปุ่มกด (Navigation) -->
+            <nav class="flex justify-start md:justify-center gap-2 md:gap-4 text-xs md:text-sm font-medium mt-3 overflow-x-auto hide-scrollbar pb-1">
+                <a href="index.html" class="bg-white/20 text-white px-5 md:px-8 py-1.5 md:py-2 rounded-sm hover:bg-white/30 transition-colors whitespace-nowrap border border-white/30 font-medium">หน้าแรก</a>
+                <a href="products.html" class="bg-white/20 text-white px-5 md:px-8 py-1.5 md:py-2 rounded-sm hover:bg-white/30 transition-colors whitespace-nowrap border border-white/30 font-medium">สินค้าทั้งหมด</a>
+                <a href="shipping.html" class="bg-white/20 text-white px-5 md:px-8 py-1.5 md:py-2 rounded-sm hover:bg-white/30 transition-colors whitespace-nowrap border border-white/30 font-medium">จัดส่งสินค้า</a>
+                
+                <!-- ปุ่ม รีวิวสินค้า กลายเป็นปุ่มที่สว่าง (Active) -->
+                <a href="reviews.html" class="bg-white text-gus-price px-5 md:px-8 py-1.5 md:py-2 rounded-sm shadow-sm whitespace-nowrap font-bold">รีวิวสินค้า</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ================= 2. MAIN REVIEW FORM (ขยายเต็มจอ) ================= -->
+    <!-- ปรับความกว้างจาก max-w-5xl เป็น max-w-7xl เพื่อให้เท่ากับ Header เป๊ะๆ -->
+    <main class="flex-1 w-full max-w-7xl mx-auto py-8 px-4 md:px-8 lg:px-12">
+        
+        <!-- กล่องกระดาษสีขาว -->
+        <div class="bg-white rounded-md shadow-md overflow-hidden border border-gray-200">
+            
+            <!-- ส่วนหัวฟอร์ม -->
+            <div class="flex items-center px-6 md:px-10 py-5 border-b border-gray-100 bg-white">
+                <a href="shipping.html" class="text-gray-500 hover:text-gus-price transition-colors p-1 transform hover:-translate-x-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                </a>
+                <h1 class="text-xl font-bold text-gray-800 ml-3">ให้คะแนนสินค้า</h1>
+            </div>
+
+            <!-- ข้อมูลสินค้า -->
+            <div class="flex items-center px-6 md:px-12 py-6 border-b border-gray-100">
+                <div class="w-24 h-24 bg-white border border-gray-200 rounded-sm p-1 shadow-sm shrink-0">
+                    <img src="https://image.makewebcdn.com/makeweb/m_1920x0/Oj6g4XrJ0/ALLPRODUCT/CO_745_02.jpg" alt="Product" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-6 flex-1">
+                    <h2 class="text-base md:text-xl font-medium text-gray-800 leading-snug">Tefal หม้อทอดไร้น้ำมันอัจฉริยะ (Model) สุขภาพดี 12-in-1</h2>
+                </div>
+            </div>
+
+            <!-- ให้คะแนนดาว (คุณภาพสินค้า) -->
+            <div class="px-6 md:px-12 py-8 border-b border-gray-100">
+                <p class="text-base font-bold mb-4 text-gray-800">ให้คะแนนคุณภาพสินค้า</p>
+                <div class="flex gap-3 cursor-pointer">
+                    <!-- ดาวสีเหลืองทอง 4 ดวง (จำลองการกดแล้ว) -->
+                    <svg class="w-10 h-10 md:w-12 md:h-12 text-[#ffce3d] hover:scale-110 transition-transform drop-shadow-sm" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-10 h-10 md:w-12 md:h-12 text-[#ffce3d] hover:scale-110 transition-transform drop-shadow-sm" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-10 h-10 md:w-12 md:h-12 text-[#ffce3d] hover:scale-110 transition-transform drop-shadow-sm" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-10 h-10 md:w-12 md:h-12 text-[#ffce3d] hover:scale-110 transition-transform drop-shadow-sm" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <!-- ดาวดวงที่ 5 (สีเทา) -->
+                    <svg class="w-10 h-10 md:w-12 md:h-12 text-gray-300 hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+            </div>
+
+            <!-- พื้นที่อัปโหลดและข้อความ -->
+            <div class="px-6 md:px-12 py-8 border-b border-gray-100">
+                <div class="w-full h-48 md:h-64 border-2 border-dashed border-gus-price bg-orange-50/50 hover:bg-orange-50 transition-colors flex flex-col items-center justify-center cursor-pointer rounded-sm group mb-6">
+                    <svg class="w-12 h-12 md:w-16 md:h-16 text-gus-price mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="text-sm md:text-base font-medium text-gus-price">เพิ่มวิดีโอ / รูปภาพ</span>
+                </div>
+                <!-- ช่องสำหรับเขียนรีวิว -->
+                <textarea rows="4" placeholder="แชร์ความรู้สึกของคุณเกี่ยวกับสินค้านี้ (อย่างน้อย 100 ตัวอักษรเพื่อรับคอยน์เพิ่ม)" class="w-full p-4 md:p-5 border border-gray-200 rounded-sm text-sm md:text-base outline-none focus:border-gus-price focus:ring-1 focus:ring-gus-price bg-gray-50 resize-none"></textarea>
+            </div>
+
+            <!-- ความเหมาะสมของขนาด (Fit Rating) -->
+            <div class="px-6 md:px-12 py-8 border-b border-gray-100">
+                <p class="text-base font-bold mb-5 text-gray-800">บอกเราว่าขนาดสินค้าเป็นอย่างไรเมื่อเทียบกับของจริง</p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-white hover:border-gus-price hover:text-gus-price text-gray-600 text-sm md:text-base font-medium py-2.5 px-10 rounded-full shadow-sm transition-colors border border-gray-200">
+                        ค่อนข้างเล็ก
+                    </button>
+                    <!-- ปุ่ม Active จำลอง -->
+                    <button class="bg-orange-50 border border-gus-price text-gus-price text-sm md:text-base font-bold py-2.5 px-10 rounded-full shadow-sm transition-colors ring-1 ring-gus-price">
+                        พอดี
+                    </button>
+                    <button class="bg-white hover:border-gus-price hover:text-gus-price text-gray-600 text-sm md:text-base font-medium py-2.5 px-10 rounded-full shadow-sm transition-colors border border-gray-200">
+                        ค่อนข้างใหญ่
+                    </button>
+                </div>
+            </div>
+
+            <!-- การให้คะแนนบริการ (Service Rating) -->
+            <div class="px-6 md:px-12 py-8 pb-12">
+                <!-- บริการจากผู้ขาย -->
+                <div class="flex justify-between items-center mb-8 max-w-2xl">
+                    <span class="text-base md:text-lg font-bold text-gray-800">บริการจากผู้ขาย</span>
+                    <div class="flex gap-2 cursor-pointer">
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </div>
+                </div>
+
+                <!-- บริการขนส่ง -->
+                <div class="flex justify-between items-center max-w-2xl">
+                    <span class="text-base md:text-lg font-bold text-gray-800">บริการจากขนส่ง</span>
+                    <div class="flex gap-2 cursor-pointer">
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-8 h-8 md:w-9 md:h-9 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= 8. SUBMIT BUTTON ================= -->
+            <div class="px-6 md:px-12 py-6 border-t border-gray-100 flex justify-end bg-gray-50">
+                <button class="bg-gus-price text-white font-bold py-3 md:py-3.5 px-20 rounded-sm hover:bg-red-600 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 w-full md:w-auto text-base">
+                    ส่งรีวิว
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="border-t-[4px] border-gus-price px-6 md:px-12 pt-8 pb-6 bg-white mt-auto w-full">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm text-gray-500">
+            <p>© 2024 Gus Shop. สงวนลิขสิทธิ์</p>
+            <div class="flex gap-4 md:gap-6">
+                <a href="#" class="hover:text-gus-price transition-colors">นโยบายความเป็นส่วนตัว</a>
+                <a href="#" class="hover:text-gus-price transition-colors">เงื่อนไขการใช้งาน</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
